@@ -7,9 +7,9 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  html {
+  /* html {
     font-size: 62.5%;
-  }
+  } */
 
   html, body, #__next {
     height: 100%;
@@ -17,5 +17,7 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #6c54d8;
+    color: #fff;
   }
 `;
