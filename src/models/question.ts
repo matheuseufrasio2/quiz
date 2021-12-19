@@ -5,17 +5,20 @@ class QuestionModel {
   #id: number;
   #interrogation: string;
   #answers: AnswerModel[];
+  #isAnswered: boolean;
   #isCorrectlyAnswered: boolean;
 
   constructor(
     id: number,
     interrogation: string,
     answers: AnswerModel[],
+    isAnswered = false,
     isCorrectlyAnswered = false,
   ) {
     this.#id = id;
     this.#interrogation = interrogation;
     this.#answers = answers;
+    this.#isAnswered = isAnswered;
     this.#isCorrectlyAnswered = isCorrectlyAnswered;
   }
 
@@ -36,19 +39,15 @@ class QuestionModel {
   }
 
   get isAnswered() {
-    for (const answer of this.#answers) {
-      if (answer.isRevealed) return true;
-    }
-
-    return false;
+    return this.#isAnswered;
   }
 
   convertToObject() {
     return {
       id: this.#id,
       interrogation: this.#interrogation,
-      isAnswered: this.isAnswered,
       isCorrectlyAnswered: this.#isCorrectlyAnswered,
+      isAnswered: this.#isAnswered,
       answers: this.#answers.map((resp) => resp.convertToObject()),
     };
   }
@@ -60,11 +59,22 @@ class QuestionModel {
       this.#id,
       this.#interrogation,
       randomAnswers,
+      this.#isAnswered,
       this.#isCorrectlyAnswered,
     );
   }
 
   answersWith(indexAnswer: number): QuestionModel {
+    if (indexAnswer === -1) {
+      return new QuestionModel(
+        this.#id,
+        this.#interrogation,
+        this.#answers,
+        this.#isAnswered,
+        this.#isCorrectlyAnswered,
+      );
+    }
+
     const isCorrectlyAnswered = this.#answers[indexAnswer]?.isCorrect;
 
     const answers = this.#answers.map((answer, i) => {
@@ -77,6 +87,7 @@ class QuestionModel {
       this.#id,
       this.#interrogation,
       answers,
+      true,
       isCorrectlyAnswered,
     );
   }

@@ -1,23 +1,30 @@
-import { AnswerModel } from "models/answer";
+import { IAnswer } from "interfaces/IAnswer";
+import { useQuestionsData } from "stores/useQuestionsData";
 import { Container, Content, FrontCard, BackCard } from "./styles";
 
 interface AnswerProps {
-  answer: AnswerModel;
-  indexAnswer: number;
+  answer: IAnswer;
+  indexQuestion: number;
   letterAlternative: string;
   backgroundColorLetterAlternative: string;
-  onResponse: (index: number) => void;
 }
 
 export function Answer({
   answer,
-  indexAnswer,
+  indexQuestion,
   letterAlternative,
   backgroundColorLetterAlternative,
-  onResponse,
 }: AnswerProps) {
+  const { onResponse } = useQuestionsData();
+
   return (
-    <Container onClick={() => onResponse(indexAnswer)}>
+    <Container
+      disabled={answer.isRevealed}
+      type="button"
+      onClick={() => {
+        onResponse(indexQuestion, answer.value);
+      }}
+    >
       <Content>
         {!answer.isRevealed ? (
           <FrontCard backgroundColor={backgroundColorLetterAlternative}>

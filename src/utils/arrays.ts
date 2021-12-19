@@ -1,8 +1,6 @@
-import { AnswerModel } from "models/answer";
+import { IAnswer } from "interfaces/IAnswer";
 
-export function random(
-  elements: never[] | AnswerModel[],
-): never[] | AnswerModel[] {
+export function random(elements: IAnswer[]): IAnswer[] {
   return elements
     .map((value) => ({ value, random: Math.random() }))
     .sort((a, b) => a.random - b.random)

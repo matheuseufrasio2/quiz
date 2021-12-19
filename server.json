@@ -1,0 +1,60 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "interrogation": "Qual bicho transmite a doença de chagas?",
+      "isAnswered": false,
+      "isCorrectlyAnswered": false,
+      "answers": [
+        {
+          "value": "Abelha",
+          "isCorrect": false,
+          "isRevealed": false
+        },
+        {
+          "value": "Barata",
+          "isCorrect": false,
+          "isRevealed": false
+        },
+        {
+          "value": "Pulga",
+          "isCorrect": false,
+          "isRevealed": false
+        },
+        {
+          "value": "Barbeiro",
+          "isCorrect": true,
+          "isRevealed": false
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "interrogation": "Qual fruta é conhecida no nordeste como jerimum?",
+      "isAnswered": false,
+      "isCorrectlyAnswered": false,
+      "answers": [
+        {
+          "value": "Caju",
+          "isCorrect": false,
+          "isRevealed": false
+        },
+        {
+          "value": "Côco",
+          "isCorrect": false,
+          "isRevealed": false
+        },
+        {
+          "value": "Tomate",
+          "isCorrect": false,
+          "isRevealed": false
+        },
+        {
+          "value": "Abóbora",
+          "isCorrect": true,
+          "isRevealed": false
+        }
+      ]
+    }
+  ]
+}

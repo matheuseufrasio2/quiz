@@ -5,17 +5,33 @@ interface FrontCardProps {
   backgroundColor: string;
 }
 
-export const Container = styled.div`
+export const Container = styled.button`
   display: flex;
   min-width: 500px;
   height: 100px;
   width: 80%;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.2s;
 
-  & + div {
+  &:hover {
+    box-shadow: 0 0 11px rgba(140,33,33,.2);
+    filter: brightness(0.9);
+  }
+
+  &:disabled {
+    cursor: no-drop;
+    filter: brightness(1);
+    color: #000333;
+  }
+
+  & + button {
     margin-top: 15px;
   }
 `;
 export const Content = styled.div`
+  height: 100%;
   position: relative;
   display: flex;
   flex: 1;

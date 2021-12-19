@@ -1,29 +1,55 @@
 import { Question } from "components/Question";
-import { AnswerModel } from "models/answer";
-import { QuestionModel } from "models/question";
-import type { NextPage } from "next";
-import { useState } from "react";
+import { IQuestion } from "interfaces/IQuestion";
+import type { GetStaticProps, NextPage } from "next";
+import { useEffect } from "react";
+import api from "services/api";
+import { useQuestionsData } from "stores/useQuestionsData";
 import { Container } from "styles/pages/home";
+import { random } from "utils/arrays";
 
-const mockedQuestion = new QuestionModel(1, "Qual é a melhor cor?", [
-  AnswerModel.incorrectAnswer("Verde"),
-  AnswerModel.incorrectAnswer("Amarelo"),
-  AnswerModel.incorrectAnswer("Vermelho"),
-  AnswerModel.correctAnswer("Preto"),
-]);
+interface HomeProps {
+  allQuestions: IQuestion[];
+}
 
-const Home: NextPage = () => {
-  const [question, setQuestion] = useState(mockedQuestion);
+const Home: NextPage<HomeProps> = ({ allQuestions }) => {
+  const { isLoading, questions, onChangeIsLoading, setQuestions } =
+    useQuestionsData();
 
-  function onResponse(index: number) {
-    setQuestion(question.answersWith(index));
+  useEffect(() => {
+    setQuestions(allQuestions);
+    onChangeIsLoading(false);
+  }, [allQuestions, onChangeIsLoading, setQuestions]);
+
+  if (isLoading) {
+    return (
+      <Container>
+        <h1>Is Loading...</h1>
+      </Container>
+    );
   }
 
   return (
     <Container>
-      <Question onResponse={onResponse} question={question} />
+      <Question question={questions[0]} />
     </Container>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const { data } = await api.get("/questions");
+
+  const allQuestions: IQuestion[] = data.map((question: IQuestion) => {
+    return {
+      ...question,
+      answers: random(question.answers),
+    };
+  });
+
+  return {
+    props: {
+      allQuestions,
+    },
+  };
 };
 
 export default Home;
